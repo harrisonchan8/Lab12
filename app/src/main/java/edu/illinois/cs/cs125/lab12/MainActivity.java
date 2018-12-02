@@ -46,6 +46,7 @@ public final class MainActivity extends AppCompatActivity {
         startAPICall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                //asdfaskldfaljskdfaljks
 //                Log.d(TAG, "Start API button clicked");
 //                startAPICall();
                 Toast.makeText(context, text, duration).show();
