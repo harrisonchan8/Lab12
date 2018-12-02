@@ -15,6 +15,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
+import android.widget.Toast;
 
 /**
  * Main screen for our API testing app.
@@ -42,17 +43,15 @@ public final class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Attach the handler to our UI button
-        final Button startAPICall = findViewById(R.id.startAPICall);
+        final Button startAPICall = findViewById(R.id.testButton);
         startAPICall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //asdfaskldfaljskdfaljks
-//                Log.d(TAG, "Start API button clicked");
-//                startAPICall();
-                Toast.makeText(context, text, duration).show();
-                //ygfgtyhgyhjuttry
+                Log.d(TAG, "Start API button clicked");
+                startAPICall();
             }
         });
+
 
         // Make sure that our progress bar isn't spinning and style it a bit
         ProgressBar progressBar = findViewById(R.id.progressBar);
