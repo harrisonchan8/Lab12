@@ -30,7 +30,7 @@ public final class MainActivity extends AppCompatActivity {
      * energyUsePerYear
      * costPerYear
      *
-     * applianceList
+     * applianceArray
      */
 
     /** Default logging tag for messages from the main activity. */
