@@ -20,7 +20,19 @@ import android.widget.Toast;
 /**
  * Main screen for our API testing app.
  */
+
+
 public final class MainActivity extends AppCompatActivity {
+
+    /**
+     * wattagePerHour
+     * usedPerYear
+     * energyUsePerYear
+     * costPerYear
+     *
+     * applianceList
+     */
+
     /** Default logging tag for messages from the main activity. */
     private static final String TAG = "Lab12:Main";
 
