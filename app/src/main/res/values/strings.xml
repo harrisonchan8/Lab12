@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">Lab 12</string>
     <string name="start_api_call">Start API Call</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="input_wattage_edittext">
+        <font size="12">
+            Wattage
+        </font>
+    </string>
+    <string name="input_times_used_per_year_edittext">
+        <font size="12">
+            Times Used
+        </font>
+    </string>
 </resources>
