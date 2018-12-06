@@ -30,7 +30,7 @@ public class ApplianceSelection extends Fragment {
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "Selected " + item, Snackbar.LENGTH_LONG).show();
             }
         });
         return view;
