@@ -32,6 +32,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <EditText
+                android:id="@+id/editTextWattage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
@@ -70,6 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <EditText
+                android:id="@+id/editTextTimesUsed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
@@ -92,6 +94,11 @@
             </FrameLayout>
 
         </LinearLayout>
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerStateSelection"/>
 
         <Button
             android:id="@+id/calculateResultsButton"

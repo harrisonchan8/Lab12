@@ -41,10 +41,12 @@ public final class MainActivity extends AppCompatActivity {
     private static final String TAG = "Lab12:Main";
 
     /** Request queue for our network requests. */
-    private static RequestQueue requestQueue;
+
 
     final String apiKey = "ZNZ0lwTSjSn3ECYTuSw92smDiAJTgmP5CTl2Me46";
     final String uri = "https://developer.nrel.gov/api/utility_rates/v3.json?";
+    final String testQuery = "&lat=35.45&lon=-82.98";
+    APIBitch apiBitch;
 
     /**
      * Run when our activity comes into view.
@@ -54,7 +56,9 @@ public final class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestQueue = Volley.newRequestQueue(this);
+
+        apiBitch = new APIBitch(uri, apiKey, testQuery);
+        apiBitch.requestQueue = Volley.newRequestQueue(this);
         setContentView(R.layout.fuck_cs125);
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
@@ -64,40 +68,6 @@ public final class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, calculatorSlidesFragment, "calculatorSlidesFragment").commit();
         }
         //dummy query
-        String query = "&lat=35.45&lon=-82.98";
-        apiCall(query);
-    }
-
-    void apiCall(String query) {
-        try {
-            String url = uri + "api_key=" + apiKey + query;
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                    Request.Method.GET, url, null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(final JSONObject response) {
-//                            System.out.println(response);
-                            try {
-                                JSONObject outputs = response.getJSONObject("outputs");
-                                Double commercial = outputs.getDouble("commercial");
-                                Double residential = outputs.getDouble("residential");
-                                Double[] costArr = {commercial, residential};
-                                for (int i = 0; i < costArr.length; i++) {
-                                    System.out.println(costArr[i]);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(final VolleyError error) {
-                    System.out.println(error.toString());
-                }
-            });
-            requestQueue.add(jsonObjectRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        apiBitch.getNewCost();
     }
 }
