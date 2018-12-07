@@ -4,6 +4,7 @@ package edu.illinois.cs.cs125.lab12;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,20 +26,34 @@ public class InputApplianceStats extends Fragment {
     private int wattsPerHour;
     private int timesUsedPerYear;
     private int num;
-    private String stateSelected;
+    final String[] statesArr = {"Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"};
+    private String stateSelected = "Alabama";
     private Double[] costArr;
     private Double residentialCost;
     private Double commercialCost;
 
     public InputApplianceStats() { }
+    /**
+     * ADD CALLBACK PLEASE TO GET IT TO WOEK!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    public void setCosts() {
+        System.out.println("state selected: " + stateSelected);
+        String costQuery = "&address=" + stateSelected;
+        costArr = myApi.getNewCost(costQuery);
+        if (costArr != null) {
+            residentialCost = 0.0;
+            commercialCost = 0.0;
+        }
+        System.out.println("residential cost for " + stateSelected + " is: " + residentialCost);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setCosts();
         View view = inflater.inflate(R.layout.input_appliance_stats, container, false);
         Button getResults = view.findViewById(R.id.calculateResultsButton);
         MaterialSpinner spinnerStatesSelection = (MaterialSpinner) view.findViewById(R.id.spinnerStateSelection);
-        final String[] statesArr = {"Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"};
         spinnerStatesSelection.setItems(statesArr);
 
         EditText editTextWattage = view.findViewById(R.id.editTextWattage);
@@ -54,10 +69,7 @@ public class InputApplianceStats extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 stateSelected = statesArr[position];
-                System.out.println("state selected: " + stateSelected);
-                String costQuery = "&address=" + stateSelected;
-                costArr = myApi.getNewCost(costQuery);
-                System.out.println("residential cost for " + stateSelected + "is: " + residentialCost);
+                setCosts();
             }
         });
 
@@ -72,14 +84,7 @@ public class InputApplianceStats extends Fragment {
                         getFragmentManager().beginTransaction().remove(fragment).commit();
                     }
                 }
-                /**
-                 * ADD CALLBACK HERE OR UP IN STATE SELECTION PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                 */
-                if (costArr != null) {
-                    residentialCost = costArr[0];
-                    commercialCost = costArr[1];
-                }
-                Toast.makeText(view.getContext(), "Fuck CS125", Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "Test Message", Toast.LENGTH_LONG).show();
                 //price.setText(num);
             }
         });
