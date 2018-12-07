@@ -41,8 +41,8 @@ public class InputApplianceStats extends Fragment {
         String costQuery = "&address=" + stateSelected;
         costArr = myApi.getNewCost(costQuery);
         if (costArr != null) {
-            residentialCost = 0.0;
-            commercialCost = 0.0;
+            residentialCost = costArr[0];
+            commercialCost = costArr[1];
         }
         System.out.println("residential cost for " + stateSelected + " is: " + residentialCost);
     }
@@ -84,7 +84,14 @@ public class InputApplianceStats extends Fragment {
                         getFragmentManager().beginTransaction().remove(fragment).commit();
                     }
                 }
-                Toast.makeText(view.getContext(), "Test Message", Toast.LENGTH_LONG).show();
+                //DUMB CALL BACK PLEASE REPLACE
+                if (costArr == null) {
+                    residentialCost = myApi.getNewCost()[0];
+                    commercialCost = myApi.getNewCost()[1];
+                }
+                Toast.makeText(view.getContext(), residentialCost == null ? "Fuck CS125" :
+                        "residential cost: " + residentialCost.toString() + ", commerical cost: "
+                                + commercialCost.toString(), Toast.LENGTH_LONG).show();
                 //price.setText(num);
             }
         });
