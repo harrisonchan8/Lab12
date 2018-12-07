@@ -26,6 +26,7 @@ public class InputApplianceStats extends Fragment {
     private int timesUsedPerYear;
     private int num;
     private String stateSelected;
+    private Double[] costArr;
     private Double residentialCost;
     private Double commercialCost;
 
@@ -55,11 +56,7 @@ public class InputApplianceStats extends Fragment {
                 stateSelected = statesArr[position];
                 System.out.println("state selected: " + stateSelected);
                 String costQuery = "&address=" + stateSelected;
-                Double[] costArr = myApi.getNewCost(costQuery);
-                if (costArr != null) {
-                    residentialCost = costArr[0];
-                    commercialCost = costArr[1];
-                }
+                costArr = myApi.getNewCost(costQuery);
                 System.out.println("residential cost for " + stateSelected + "is: " + residentialCost);
             }
         });
@@ -74,6 +71,13 @@ public class InputApplianceStats extends Fragment {
                     if (fragment.getTag().equals("calculatorSlidesFragment")) {
                         getFragmentManager().beginTransaction().remove(fragment).commit();
                     }
+                }
+                /**
+                 * ADD CALLBACK HERE OR UP IN STATE SELECTION PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                 */
+                if (costArr != null) {
+                    residentialCost = costArr[0];
+                    commercialCost = costArr[1];
                 }
                 Toast.makeText(view.getContext(), "Fuck CS125", Toast.LENGTH_LONG).show();
                 //price.setText(num);
