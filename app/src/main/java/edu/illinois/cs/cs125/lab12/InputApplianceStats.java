@@ -45,7 +45,7 @@ public class InputApplianceStats extends Fragment {
         //Get Cost (Double) from api
         String costQuery = "=" + statesArr[spinnerStatesSelection.getSelectedIndex()];
         Double[] costArr = myApi.getNewCost(costQuery);
-        Double residentialCost = costArr[0];
+        
 
         getResults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class InputApplianceStats extends Fragment {
                         getFragmentManager().beginTransaction().remove(fragment).commit();
                     }
                 }
-                Toast.makeText(view.getContext(), "pushed", Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "Fuck CS125", Toast.LENGTH_LONG).show();
                 //price.setText(num);
             }
         });
