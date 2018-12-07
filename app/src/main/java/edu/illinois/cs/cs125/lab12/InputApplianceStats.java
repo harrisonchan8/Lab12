@@ -75,7 +75,7 @@ public class InputApplianceStats extends Fragment {
                         getFragmentManager().beginTransaction().remove(fragment).commit();
                     }
                 }
-                Toast.makeText(view.getContext(), residentialCost.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "Fuck CS125", Toast.LENGTH_LONG).show();
                 //price.setText(num);
             }
         });
