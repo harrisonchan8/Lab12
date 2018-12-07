@@ -2,6 +2,7 @@ package edu.illinois.cs.cs125.lab12;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
+
 import java.util.List;
 
 
 public class InputApplianceStats extends Fragment {
 
+    final String apiKey = "ZNZ0lwTSjSn3ECYTuSw92smDiAJTgmP5CTl2Me46";
+    final String uri = "https://developer.nrel.gov/api/utility_rates/v3.json?";
+    private APIBitch myApi = new APIBitch(uri, apiKey);
 
     public InputApplianceStats() { }
 
@@ -24,17 +30,22 @@ public class InputApplianceStats extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.input_appliance_stats, container, false);
         Button getResults = view.findViewById(R.id.calculateResultsButton);
-//        int wattsPerHour = Integer.parseInt(view.findViewById(R.id.Wattage);
-//        int timePerDay = Integer.parseInt(view.findViewById(R.id.timesUsed));
-//        TextView price = view.findViewById(R.id.priceResult);
-//        int num = wattsPerHour * timePerDay * 30;
+        MaterialSpinner spinnerStatesSelection = (MaterialSpinner) view.findViewById(R.id.spinnerStateSelection);
+        String[] statesArr = {"Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"};
+        spinnerStatesSelection.setItems(statesArr);
+
         EditText editTextWattage = view.findViewById(R.id.editTextWattage);
         EditText editTextTimesUsed = view.findViewById(R.id.editTextTimesUsed);
+        String wattageString = editTextWattage.getText().toString();
+        String timesUsedString = editTextTimesUsed.getText().toString();
+        int wattsPerHour = wattageString.equals("") ? 0 : Integer.parseInt(wattageString);
+        int timesUsedPerYear = timesUsedString.equals("") ? 0 : Integer.parseInt(timesUsedString);
+        int num = wattsPerHour * timesUsedPerYear;
 
-        int wattsPerHour = Integer.parseInt(editTextWattage.getText().toString());
-        int timesUsedPerYear = Integer.parseInt(editTextTimesUsed.getText().toString());
-
-
+        //Get Cost (Double) from api
+        String costQuery = "=" + statesArr[spinnerStatesSelection.getSelectedIndex()];
+        Double[] costArr = myApi.getNewCost(costQuery);
+        Double residentialCost = costArr[0];
 
         getResults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +58,7 @@ public class InputApplianceStats extends Fragment {
                         getFragmentManager().beginTransaction().remove(fragment).commit();
                     }
                 }
-                Toast.makeText(view.getContext(), "pushed", 100).show();
+                Toast.makeText(view.getContext(), "pushed", Toast.LENGTH_LONG).show();
                 //price.setText(num);
             }
         });

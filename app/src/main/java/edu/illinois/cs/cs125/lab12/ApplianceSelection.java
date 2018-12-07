@@ -24,8 +24,8 @@ public class ApplianceSelection extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.appliance_selection, container, false);
         MaterialSpinner spinner = (MaterialSpinner) view.findViewById(R.id.materialSpinner);
-        String[] applianceList = {"Ceiling Fan", "Clother Dryer","Clothes Wahser","Computer","Dish Waher", "Har Dryer"
-                ,"Microvate","Humidifier","Air Conditioner", "Oven", "Refrigirator","Television","Water Heater", "Vacuum"};
+        String[] applianceList = {"Ceiling Fan", "Clothes Dryer", "Clothes Washer", "Computer","Dish Washer", "Hair Dryer"
+                , "Microwave", "Humidifier", "Air Conditioner", "Oven", "Refrigerator", "Television", "Water Heater", "Vacuum"};
         spinner.setItems(applianceList);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
