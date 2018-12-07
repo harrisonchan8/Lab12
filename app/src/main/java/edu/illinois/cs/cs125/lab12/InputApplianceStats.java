@@ -8,8 +8,10 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,18 +26,23 @@ public class InputApplianceStats extends Fragment {
     final String uri = "https://developer.nrel.gov/api/utility_rates/v3.json?";
     private APIBitch myApi = new APIBitch(uri, apiKey);
     private int wattsPerHour;
-    private int timesUsedPerYear;
-    private int num;
+    private int timesUsedPerDay;
     final String[] statesArr = {"Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"};
     private String stateSelected = "Alabama";
     private Double[] costArr;
     private Double residentialCost;
     private Double commercialCost;
+    private Double cost;
+    final String[] priceType = {"commercialCost", "residentialCost"};
+    private String priceTypeSelected = "commercialCost";
+    ArrayAdapter<CharSequence> adapter;
+    EditText editWattage;
+    EditText editTimesUsed;
+    private double num;
+
 
     public InputApplianceStats() { }
-    /**
-     * ADD CALLBACK PLEASE TO GET IT TO WOEK!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     */
+
     public void setCosts() {
         String costQuery = "&address=" + stateSelected;
         costArr = myApi.getNewCost(costQuery);
@@ -54,13 +61,13 @@ public class InputApplianceStats extends Fragment {
         MaterialSpinner spinnerStatesSelection = (MaterialSpinner) view.findViewById(R.id.spinnerStateSelection);
         spinnerStatesSelection.setItems(statesArr);
 
-        EditText editTextWattage = view.findViewById(R.id.editTextWattage);
-        EditText editTextTimesUsed = view.findViewById(R.id.editTextTimesUsed);
-        String wattageString = editTextWattage.getText().toString();
-        String timesUsedString = editTextTimesUsed.getText().toString();
-        wattsPerHour = wattageString.equals("") ? 0 : Integer.parseInt(wattageString);
-        timesUsedPerYear = timesUsedString.equals("") ? 0 : Integer.parseInt(timesUsedString);
-        num = wattsPerHour * timesUsedPerYear;
+        //Spinner spinnerPriceTypeSelection = (Spinner) view.findViewById(R.id.priceTypeSelection);
+        //adapter = ArrayAdapter.createFromResource(getContext(), R. )
+        //spinnerPriceTypeSelection.setOnItemClickListener(priceType);
+
+
+        editWattage = (EditText) view.findViewById(R.id.editTextWattage);
+        editTimesUsed = (EditText) view.findViewById(R.id.editTextTimesUsed);
 
         //Update Selected State and get cost on state selected
         spinnerStatesSelection.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
@@ -68,6 +75,15 @@ public class InputApplianceStats extends Fragment {
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 stateSelected = statesArr[position];
                 setCosts();
+            }
+        });
+
+        MaterialSpinner  spinnerPriceTypeSelection = (MaterialSpinner) view.findViewById(R.id.spinnerPriceSelection);
+        spinnerPriceTypeSelection.setItems(priceType);
+        spinnerPriceTypeSelection.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                priceTypeSelected = priceType[position];
             }
         });
 
@@ -87,13 +103,22 @@ public class InputApplianceStats extends Fragment {
                     residentialCost = myApi.getNewCost()[0];
                     commercialCost = myApi.getNewCost()[1];
                 }
-                Toast.makeText(view.getContext(), residentialCost == null ? "Fuck CS125" :
-                        "residential cost: " + residentialCost.toString() + ", commerical cost: "
-                                + commercialCost.toString(), Toast.LENGTH_LONG).show();
-                //price.setText(num);
+                makeCalculation();
+                Toast.makeText(getContext(), String.valueOf(num), Toast.LENGTH_LONG).show();
             }
         });
         return view;
     }
-
+    private void makeCalculation() {
+        wattsPerHour = Integer.valueOf(editWattage.getText().toString());
+        timesUsedPerDay = Integer.valueOf(editTimesUsed.getText().toString());
+        if (priceTypeSelected.equals("commercialCost")) {
+            cost = commercialCost;
+        }
+        if (priceTypeSelected.equals("residentialCost")) {
+            cost = residentialCost;
+        }
+        num = wattsPerHour * timesUsedPerDay * 30 * cost;
+        System.out.print(num);
+    }
 }
