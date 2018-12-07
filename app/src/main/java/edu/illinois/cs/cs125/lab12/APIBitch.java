@@ -17,6 +17,7 @@ public class APIBitch {
     private String apiKey;
     private String query;
     public static RequestQueue requestQueue;
+    private Double[] costArr;
 
     APIBitch() { }
 
@@ -56,11 +57,14 @@ public class APIBitch {
     }
 
     public Double[] getNewCost() {
-        return getNewCost(this.query);
+        if (costArr != null) {
+            return costArr;
+        } else {
+            return getNewCost(this.query);
+        }
     }
 
     public Double[] getNewCost(String query) {
-        final Double costArr[] = new Double[2];
         try {
             String url = uri + "api_key=" + apiKey + query;
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -73,11 +77,9 @@ public class APIBitch {
                                 JSONObject outputs = response.getJSONObject("outputs");
                                 Double commercial = outputs.getDouble("commercial");
                                 Double residential = outputs.getDouble("residential");
+                                costArr = new Double[2];
                                 costArr[0] = commercial;
                                 costArr[1] = residential;
-                                //Prints costArr
-                                System.out.println("Commercial cost: " + costArr[0]);
-                                System.out.println("Residential cost: " + costArr[1]);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -92,6 +94,6 @@ public class APIBitch {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return costArr;
     }
 }

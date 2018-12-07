@@ -37,14 +37,12 @@ public class InputApplianceStats extends Fragment {
      * ADD CALLBACK PLEASE TO GET IT TO WOEK!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     public void setCosts() {
-        System.out.println("state selected: " + stateSelected);
         String costQuery = "&address=" + stateSelected;
         costArr = myApi.getNewCost(costQuery);
         if (costArr != null) {
             residentialCost = costArr[0];
             commercialCost = costArr[1];
         }
-        System.out.println("residential cost for " + stateSelected + " is: " + residentialCost);
     }
 
     @Override
