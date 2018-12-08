@@ -8,15 +8,23 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/inputApplianceStatsLayoutFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerPriceSelection"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPriceSelection">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="340dp"
             android:text="Input Appliance Stats"
             android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/resultLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -52,7 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="per hour"
+                    android:text="Watts Per Hour"
                     android:textColor="#FFFFFF" />
             </FrameLayout>
 
@@ -89,7 +97,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="per year"
+                    android:text="Hours Per Day"
                     android:textColor="#FFFFFF" />
             </FrameLayout>
 
@@ -109,10 +117,39 @@
             android:id="@+id/calculateResultsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="92dp"
             android:text="Calculate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerStateSelection" />
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinnerPriceSelection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerStateSelection" />
+
+        <LinearLayout
+            android:id="@+id/resultLayout"
+            android:layout_width="200dp"
+            android:layout_height="46dp"
+            android:background="@drawable/border"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_constraintLeft_toRightOf="@id/calculateResultsButton"
+            app:layout_constraintTop_toBottomOf="@id/calculateResultsButton">
+
+            <TextView
+                android:id="@+id/resultTextView"
+                android:layout_width="50dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:height="23dp"
+                android:text="YourResult(Dollar)" />
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

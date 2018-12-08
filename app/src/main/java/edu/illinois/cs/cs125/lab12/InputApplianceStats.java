@@ -39,6 +39,7 @@ public class InputApplianceStats extends Fragment {
     EditText editWattage;
     EditText editTimesUsed;
     private double num;
+    TextView resultText;
 
 
     public InputApplianceStats() { }
@@ -68,6 +69,7 @@ public class InputApplianceStats extends Fragment {
 
         editWattage = (EditText) view.findViewById(R.id.editTextWattage);
         editTimesUsed = (EditText) view.findViewById(R.id.editTextTimesUsed);
+        final TextView resultText = view.findViewById(R.id.resultTextView);
 
         //Update Selected State and get cost on state selected
         spinnerStatesSelection.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
@@ -104,21 +106,34 @@ public class InputApplianceStats extends Fragment {
                     commercialCost = myApi.getNewCost()[1];
                 }
                 makeCalculation();
-                Toast.makeText(getContext(), String.valueOf(num), Toast.LENGTH_LONG).show();
+                resultText.setText(String.valueOf(num));
+                //Toast.makeText(getContext(), String.valueOf(num), 2000 ).show();
             }
         });
         return view;
     }
     private void makeCalculation() {
-        wattsPerHour = Integer.valueOf(editWattage.getText().toString());
+        if (editWattage.getText().toString().equals("")) {
+            num = 0.0;
+        } else {
+            wattsPerHour = Integer.valueOf(editWattage.getText().toString());
+            timesUsedPerDay = Integer.valueOf(editTimesUsed.getText().toString());
+            if (priceTypeSelected.equals("commercialCost")) {
+                cost = commercialCost;
+            }
+            if (priceTypeSelected.equals("residentialCost")) {
+                cost = residentialCost;
+            }
+            num = wattsPerHour * timesUsedPerDay * 30 * cost / 1000;
+        }
+        /*wattsPerHour = Integer.valueOf(editWattage.getText().toString());
         timesUsedPerDay = Integer.valueOf(editTimesUsed.getText().toString());
         if (priceTypeSelected.equals("commercialCost")) {
             cost = commercialCost;
         }
         if (priceTypeSelected.equals("residentialCost")) {
             cost = residentialCost;
-        }
-        num = wattsPerHour * timesUsedPerDay * 30 * cost;
+        }*/
         System.out.print(num);
     }
 }
