@@ -3,7 +3,7 @@ package edu.illinois.cs.cs125.lab12;
 public class SpinnerItem {
 
     private String itemText;
-    private Integer itemId;
+    private int itemId;
 
     public String getItemText() {
         return itemText;
@@ -13,23 +13,23 @@ public class SpinnerItem {
         this.itemText = itemText;
     }
 
-    public Integer getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
     public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+        this.itemId = (int) itemId;
     }
 
     SpinnerItem(String setItemName) {
         this.itemText = setItemName;
 //        System.out.println(setItemName);
-        this.itemId = null;
+        this.itemId = 0;
     }
 
-    SpinnerItem(String setItemName, Integer setItemIconId) {
+    SpinnerItem(String setItemName, long setItemIconId) {
         this.itemText = setItemName;
-        this.itemId = setItemIconId;
+        this.itemId = (int) setItemIconId;
     }
 
     @Override
