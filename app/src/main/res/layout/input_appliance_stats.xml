@@ -145,12 +145,35 @@
 
             <TextView
                 android:id="@+id/resultTextView"
-                android:layout_width="50dp"
+                android:layout_width="125dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="0dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:height="23dp"
-                android:text="YourResult(Dollar)" />
+                android:text="YourResult($)"
+                android:textSize="18sp" />
+
+            <FrameLayout
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:fadingEdge="horizontal|vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="0dp"
+                    android:fadingEdge="none"
+                    android:text="Dollar"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="18sp" />
+            </FrameLayout>
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
