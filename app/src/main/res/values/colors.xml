@@ -6,4 +6,6 @@
     <color name="colorSecondaryMinus1"></color>
     <color name="colorSecondary">#FFE090</color>
     <color name="colorSecondaryPlus1">#CAAE61</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000000</color>
 </resources>
