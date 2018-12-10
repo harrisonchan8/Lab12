@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.illinois.cs.cs125.lab12.ApplianceSelection"
-    android:id="@+id/applianceSelectionLayout"
-    android:background="@drawable/smilinghouseholdappliances">
+    android:id="@+id/applianceSelectionLayout">
 
     <TextView
         android:id="@+id/textView"
