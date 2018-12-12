@@ -107,6 +107,7 @@ public class InputApplianceStats extends Fragment {
                 }
                 makeCalculation();
                 resultText.setText(String.valueOf(num));
+                Snackbar.make(view, "Price calculated. Swipe back for new selection", Snackbar.LENGTH_LONG).show();
                 //Toast.makeText(getContext(), String.valueOf(num), 2000 ).show();
             }
         });
@@ -118,6 +119,10 @@ public class InputApplianceStats extends Fragment {
         } else {
             wattsPerHour = Integer.valueOf(editWattage.getText().toString());
             timesUsedPerDay = Integer.valueOf(editTimesUsed.getText().toString());
+            if (wattsPerHour < 0 || timesUsedPerDay < 0 || timesUsedPerDay > 24) {
+                wattsPerHour = 0;
+                timesUsedPerDay = 0;
+            }
             if (priceTypeSelected.equals("commercialCost")) {
                 cost = commercialCost;
             }

@@ -63,6 +63,7 @@ public class ApplianceSelection extends Fragment {
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 selectedItem = (SpinnerItem) item;
                 selectedApplianceImageView.setImageResource(selectedItem.getItemId());
+                Snackbar.make(view, "Selected " + item + ", swipe to go to next page", Snackbar.LENGTH_LONG).show();
             }
         });
         return view;
